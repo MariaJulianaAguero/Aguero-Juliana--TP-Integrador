@@ -49,5 +49,25 @@ function generarPregunta(paises) {
   
     return { pregunta, opciones, correcta, puntos: 5, imagen };
   }
+
+  function preguntaLimites(paises) {
+    const pais = paises[Math.floor(Math.random() * paises.length)];
+    const correcta = (pais.borders || []).length;
+    const pregunta = `¿Cuántos países limítrofes tiene ${pais.name.common}?`;
+  
+  
+    const incorrectas = mezclar([
+      Math.max(0, correcta + 1),
+      Math.max(0, correcta + 2),
+      Math.max(0, correcta - 1)
+    ]).slice(0, 3);
+    const opciones = mezclar([correcta].concat(incorrectas));
+  
+  
+    return { pregunta, opciones, correcta, puntos: 3 };
+  }
+  
+  
+  
   
   
