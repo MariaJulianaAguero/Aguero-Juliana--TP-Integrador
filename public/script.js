@@ -16,4 +16,20 @@ function generarPregunta(paises) {
     const tipo = tipoPreguntas[Math.floor(Math.random() * tipoPreguntas.length)];
     return tipo(paises);
   }
+
+  function preguntaCapitales(paises) {
+    let pais;
+    do {
+      pais = paises[Math.floor(Math.random() * paises.length)];
+    } while (!pais.capital || !pais.capital[0]);
+  
+  
+    const correcta = pais.name.common;
+    const pregunta = `¿Cual es el pais de la ciudad capital ${pais.capital[0]}?`;
+    const incorrectas = generarOpcionesIncorrectas(paises, correcta);
+    const opciones = mezclar([correcta].concat(incorrectas));
+  
+  
+    return { pregunta, opciones, correcta, puntos: 3 };
+  }
   
