@@ -32,4 +32,22 @@ function generarPregunta(paises) {
   
     return { pregunta, opciones, correcta, puntos: 3 };
   }
+
+  function preguntaBandera(paises) {
+    let pais;
+    do {
+      pais = paises[Math.floor(Math.random() * paises.length)];
+    } while (!pais.flags || !pais.flags.svg);
+  
+  
+    const correcta = pais.name.common;
+    const pregunta = `¿A que pais pertenece esta bandera?`;
+    const imagen = pais.flags.svg;
+    const incorrectas = generarOpcionesIncorrectas(paises, correcta);
+    const opciones = mezclar([correcta].concat(incorrectas));
+  
+  
+    return { pregunta, opciones, correcta, puntos: 5, imagen };
+  }
+  
   
