@@ -10,3 +10,10 @@ function obtenerPaises() {
       paises = data; // Guarda todos los paises en la variable paises para usarlos mas tarde
     });
 }
+
+function generarPregunta(paises) {
+    const tipoPreguntas = [preguntaCapitales, preguntaBandera, preguntaLimites];
+    const tipo = tipoPreguntas[Math.floor(Math.random() * tipoPreguntas.length)];
+    return tipo(paises);
+  }
+  
