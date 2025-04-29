@@ -107,8 +107,21 @@ function generarPregunta(paises) {
     document.getElementById('resultado').textContent = '';
   }
   
+  function mostrarResultado(elegida, correcta, puntos) {
+    const res = document.getElementById('resultado');
+    if (elegida === correcta) {
+      puntaje += puntos;
+      res.textContent = '¡Correcto!';
+      res.style.color = 'green';
+    } else {
+      res.textContent = `Incorrecto. La respuesta correcta era: ${correcta}`;
+      res.style.color = 'red';
+    }
   
   
+    document.getElementById('puntaje').textContent = `Puntaje: ${puntaje}`;
+  
+  }
   
   
   
