@@ -1,14 +1,23 @@
 const url = "https://restcountries.com/v3.1/all";
 let paises = [];
 let puntaje = 0;  // Variable global para el puntaje
-
+let preguntaActual = null;
+let totalPreguntas = 10;
+let preguntasRespondidas = 0;
+let respuestasCorrectas = 0;
+let respuestasIncorrectas = 0;
+let tiempoInicio = null;
+let tiemposRespuesta = [];
 
 function obtenerPaises() {
   fetch(url)
     .then(res => res.json())
     .then(data => {
       paises = data; // Guarda todos los paises en la variable paises para usarlos mas tarde
-    });
+      nuevaPregunta();
+      tiempoInicio = Date.now();
+    })
+    .catch(error => console.error('Error al obtener países:', error));
 }
 
 function generarPregunta(paises) {
@@ -80,29 +89,26 @@ function generarPregunta(paises) {
   }
   
   function nuevaPregunta() {
-    const datos = generarPregunta(paises);
-    document.getElementById('pregunta').textContent = datos.pregunta;
-  
+    preguntaActual = generarPregunta(paises);
+    document.getElementById('pregunta').textContent = preguntaActual.pregunta;
   
     const contenedorOpciones = document.getElementById('opciones');
     contenedorOpciones.innerHTML = '';
-    datos.opciones.forEach(op => {
+    preguntaActual.opciones.forEach(op => {
       const boton = document.createElement('button');
       boton.textContent = op;
       boton.className = 'opcion';
-      boton.onclick = () => mostrarResultado(op, datos.correcta, datos.puntos);
+      boton.onclick = () => mostrarResultado(op, preguntaActual.correcta, preguntaActual.puntos);
       contenedorOpciones.appendChild(boton);
     });
   
-  
     const img = document.getElementById('imagen');
-    if (datos.imagen) {
-      img.src = datos.imagen;
+    if (preguntaActual.imagen) {
+      img.src = preguntaActual.imagen;
       img.style.display = 'block';
     } else {
       img.style.display = 'none';
     }
-  
   
     document.getElementById('resultado').textContent = '';
   }
@@ -122,6 +128,6 @@ function generarPregunta(paises) {
     document.getElementById('puntaje').textContent = `Puntaje: ${puntaje}`;
   
   }
-  
+  obtenerPaises();
   
   

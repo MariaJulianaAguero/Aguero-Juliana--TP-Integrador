@@ -7,28 +7,22 @@
   <link rel="stylesheet" href="estilo.css" />
 </head>
 <body>
+  <div id="contenedor">
+    <h1>Juego de Países</h1>
+    <p id="puntaje">Puntaje: 0</p>
 
+    <div id="pregunta"></div>
+    <img id="imagen" src="" alt="Bandera">
 
-   
-    <h1>Juego de Preguntas</h1>
-    <div id="pregunta">¿Cuál es la capital de Francia?</div>
+    <div id="opciones"></div>
 
+    <p id="resultado"></p>
 
-    <div id="opciones">
-      
-    </div>
+    <button onclick="nuevaPregunta()" id="siguiente">Siguiente Pregunta</button>
+    
+  </div>
 
-
-    <img id="imagen" src="" alt="Imagen de la bandera" style="display: none;" />
-
-
-    <div id="resultado"></div>
-    <div id="puntaje">Puntaje: 0</div>
-
-
-    <button id="siguiente" onclick="nuevaPregunta()">Siguiente pregunta</button>
-
-    <p id="ranking"></p>
-  <script src="script.js"></script>
+  
 </body>
+<script src="script.js"></script>
 </html>
