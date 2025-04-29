@@ -78,7 +78,35 @@ function generarPregunta(paises) {
       .map(p => p.name.common);
     return mezclar(nombres).slice(0, 3);
   }
-    
+  
+  function nuevaPregunta() {
+    const datos = generarPregunta(paises);
+    document.getElementById('pregunta').textContent = datos.pregunta;
+  
+  
+    const contenedorOpciones = document.getElementById('opciones');
+    contenedorOpciones.innerHTML = '';
+    datos.opciones.forEach(op => {
+      const boton = document.createElement('button');
+      boton.textContent = op;
+      boton.className = 'opcion';
+      boton.onclick = () => mostrarResultado(op, datos.correcta, datos.puntos);
+      contenedorOpciones.appendChild(boton);
+    });
+  
+  
+    const img = document.getElementById('imagen');
+    if (datos.imagen) {
+      img.src = datos.imagen;
+      img.style.display = 'block';
+    } else {
+      img.style.display = 'none';
+    }
+  
+  
+    document.getElementById('resultado').textContent = '';
+  }
+  
   
   
   
