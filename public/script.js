@@ -72,7 +72,13 @@ function generarPregunta(paises) {
   }
   
   
-  
+  function generarOpcionesIncorrectas(paises, correcta) {
+    const nombres = paises
+      .filter(p => p.name && p.name.common !== correcta)
+      .map(p => p.name.common);
+    return mezclar(nombres).slice(0, 3);
+  }
+    
   
   
   
