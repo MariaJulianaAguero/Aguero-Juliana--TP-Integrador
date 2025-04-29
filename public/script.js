@@ -111,22 +111,54 @@ function generarPregunta(paises) {
     }
   
     document.getElementById('resultado').textContent = '';
+    document.getElementById('siguiente').style.display = 'none';
   }
   
   function mostrarResultado(elegida, correcta, puntos) {
     const res = document.getElementById('resultado');
+    preguntasRespondidas++;
+
+    const tiempoRespuesta = Date.now() - tiempoInicio;
+    tiemposRespuesta.push(tiempoRespuesta);
+
     if (elegida === correcta) {
       puntaje += puntos;
+      respuestasCorrectas++;
       res.textContent = '¡Correcto!';
       res.style.color = 'green';
     } else {
+      respuestasIncorrectas++;
       res.textContent = `Incorrecto. La respuesta correcta era: ${correcta}`;
       res.style.color = 'red';
+    }
+    if (preguntasRespondidas >= totalPreguntas) {
+      mostrarResumen();
+    } else {
+      document.getElementById('siguiente').style.display = 'block';
     }
   
   
     document.getElementById('puntaje').textContent = `Puntaje: ${puntaje}`;
   
+  }
+
+  function mostrarResumen() {
+    const duracionTotal = tiemposRespuesta.reduce((a, b) => a + b, 0);
+    const promedio = duracionTotal / tiemposRespuesta.length;
+  
+    const resumen = `
+      <strong>🏁 Juego terminado</strong><br><br>
+      🟢 <strong>Correctas:</strong> ${respuestasCorrectas}<br>
+      🔴 <strong>Incorrectas:</strong> ${respuestasIncorrectas}<br>
+      ⏱️ <strong>Tiempo total:</strong> ${(duracionTotal / 1000).toFixed(2)} segundos<br>
+      ⌛ <strong>Tiempo promedio por pregunta:</strong> ${(promedio / 1000).toFixed(2)} segundos<br>
+      🧠 <strong>Puntaje total:</strong> ${puntaje}
+    `;
+  
+    document.getElementById('pregunta').innerHTML = resumen;
+    document.getElementById('opciones').innerHTML = '';
+    document.getElementById('imagen').style.display = 'none';
+    document.getElementById('siguiente').style.display = 'none';
   }
   obtenerPaises();
   
