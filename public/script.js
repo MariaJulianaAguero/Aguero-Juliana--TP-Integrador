@@ -66,6 +66,13 @@ function generarPregunta(paises) {
   
     return { pregunta, opciones, correcta, puntos: 3 };
   }
+
+  function mezclar(arr) {
+    return arr.sort(() => 0.5 - Math.random());
+  }
+  
+  
+  
   
   
   
