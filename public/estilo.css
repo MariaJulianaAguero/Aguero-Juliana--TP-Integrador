@@ -81,3 +81,12 @@ body {
   #siguiente:hover {
     background: #27ae60;
   }
+
+  #pregunta {
+    background-color: #f0f8ff;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
