@@ -18,7 +18,7 @@ body {
   margin-top: 100px;
   width: 100%;
   max-width: 400px; /* Limitar el ancho del formulario */
-  background-color: antiquewhite;
+  background-color: rgb(247, 247, 247);
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -60,9 +60,9 @@ button:hover {
   display: none; /* Se muestra cuando comience el juego */
   text-align: center;
   margin-top: 50px;
-  max-width: 600px;
+  max-width: 500px;
   width: 100%; /* Hace que el contenedor se adapte a la pantalla */
-  background-color: antiquewhite;
+  background-color: rgb(247, 247, 247);
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Agregar sombra para darle más profundidad */
   padding: 20px; /* Espaciado interno */
@@ -102,7 +102,7 @@ h1 {
 
 /* Estilo para la imagen de la bandera */
 #imagen {
-  max-width: 80%;
+  max-width: 50%;
   height: auto;
   margin: 15px auto;
   display: none;
@@ -124,4 +124,11 @@ h1 {
 
 #siguiente:hover {
   background-color: #27ae60;
+}
+.pregunta-estilo {
+  font-size: 20px;
+  font-weight: bold;
+  color: #4CAF50;  /* Color verde */
+  text-align: center;
+  margin: 20px 0;
 }

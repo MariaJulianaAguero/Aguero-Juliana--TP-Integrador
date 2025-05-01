@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Juego de Países 🌍</title>
-  
   <link rel="stylesheet" href="estilo.css" />
 </head>
 <body>
@@ -12,10 +11,10 @@
   <div id="formulario-nombre-container">
     <h1>Ingresa tu nombre</h1>
     <input type="text" id="nombre" placeholder="Escribe tu nombre" />
-    <button onclick="iniciarJuego()">Comenzar</button>
+    <button id="btn-comenzar">Comenzar</button> <!-- El botón ya no tiene onclick -->
   </div>
 
-  <div id="contenedor">
+  <div id="contenedor" style="display:none;">
     <h1>Juego de Países</h1>
     <p>Jugador: <span id="nombre-jugador"></span></p>
     <p id="puntaje">Puntaje: 0</p>
@@ -26,12 +25,28 @@
     <div id="opciones"></div>
 
     <p id="resultado"></p>
+  
 
-    <button onclick="nuevaPregunta()" id="siguiente">Siguiente Pregunta</button>
-    
+    <button id="siguiente" style="display:none;" onclick="nuevaPregunta()">Siguiente Pregunta</button>
   </div>
 
-  
+  <div id="ranking-container" style="display: none;">
+    <button onclick="verRanking()">Ver Ranking</button>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Puntaje</th>
+          <th>Correctas</th>
+          <th>Tiempo (s)</th>
+        </tr>
+      </thead>
+      <tbody id="tabla-ranking"></tbody>
+    </table>
+  </div>
+
+ 
+
 </body>
 <script src="script.js"></script>
 </html>

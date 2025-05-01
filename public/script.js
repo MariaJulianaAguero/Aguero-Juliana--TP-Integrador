@@ -91,7 +91,10 @@ function generarPregunta(paises) {
   
   function nuevaPregunta() {
     preguntaActual = generarPregunta(paises);
-    document.getElementById('pregunta').textContent = preguntaActual.pregunta;
+    const preguntaElement = document.getElementById('pregunta');
+  
+    preguntaElement.textContent = preguntaActual.pregunta;
+    preguntaElement.className = 'pregunta-estilo';
   
     const contenedorOpciones = document.getElementById('opciones');
     contenedorOpciones.innerHTML = '';
@@ -132,6 +135,7 @@ function generarPregunta(paises) {
       res.textContent = `Incorrecto. La respuesta correcta era: ${correcta}`;
       res.style.color = 'red';
     }
+
     if (preguntasRespondidas >= totalPreguntas) {
       mostrarResumen();
     } else {
@@ -160,8 +164,32 @@ function generarPregunta(paises) {
     document.getElementById('opciones').innerHTML = '';
     document.getElementById('imagen').style.display = 'none';
     document.getElementById('siguiente').style.display = 'none';
+
+    
   }
-  document.getElementById('btn-comenzar').addEventListener('click', () => {
+
+  function verRanking() {
+    fetch('/ranking')
+      .then(res => res.json())
+      .then(partidas => {
+        const tabla = document.getElementById('tabla-ranking');
+        tabla.innerHTML = ''; // Limpiar tabla
+  
+        partidas.forEach(partida => {
+          const fila = document.createElement('tr');
+          fila.innerHTML = `
+            <td>${partida.nombre}</td>
+            <td>${partida.puntaje}</td>
+            <td>${partida.correctas}</td>
+            <td>${partida.tiempoTotal}</td>
+          `;
+          tabla.appendChild(fila);
+        });
+      })
+      .catch(error => console.error('Error al cargar el ranking:', error));
+  }
+
+  function iniciarJuego() {
     const inputNombre = document.getElementById('nombre');
     const nombre = inputNombre.value.trim();
   
@@ -173,12 +201,14 @@ function generarPregunta(paises) {
     nombreJugador = nombre;
     document.getElementById('nombre-jugador').textContent = nombreJugador;
   
-    // Oculta el formulario y empieza muestrar el juego
-    document.getElementById('formulario-nombre').style.display = 'none';
+    // Oculta el formulario y empieza a mostrar el juego
+    document.getElementById('formulario-nombre-container').style.display = 'none';
     document.getElementById('contenedor').style.display = 'block';
-  
     
-    obtenerPaises(); 
-  });
+  
+    obtenerPaises();
+  }
+
+  document.getElementById('btn-comenzar').addEventListener('click', iniciarJuego);
   
   
