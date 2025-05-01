@@ -8,6 +8,7 @@ let respuestasCorrectas = 0;
 let respuestasIncorrectas = 0;
 let tiempoInicio = null;
 let tiemposRespuesta = [];
+let nombreJugador = '';
 
 function obtenerPaises() {
   fetch(url)
@@ -160,6 +161,24 @@ function generarPregunta(paises) {
     document.getElementById('imagen').style.display = 'none';
     document.getElementById('siguiente').style.display = 'none';
   }
-  obtenerPaises();
+  document.getElementById('btn-comenzar').addEventListener('click', () => {
+    const inputNombre = document.getElementById('nombre');
+    const nombre = inputNombre.value.trim();
+  
+    if (nombre === '') {
+      alert('Por favor ingresá tu nombre');
+      return;
+    }
+  
+    nombreJugador = nombre;
+    document.getElementById('nombre-jugador').textContent = nombreJugador;
+  
+    // Oculta el formulario y empieza muestrar el juego
+    document.getElementById('formulario-nombre').style.display = 'none';
+    document.getElementById('contenedor').style.display = 'block';
+  
+    
+    obtenerPaises(); 
+  });
   
   

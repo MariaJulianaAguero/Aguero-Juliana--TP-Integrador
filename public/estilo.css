@@ -1,96 +1,127 @@
 body {
-    font-family: 'Segoe UI', sans-serif;
-    background-image: url(img/mundi.jpg);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    margin: 0;
-    padding: 20px;
-    text-align: center;
-  }
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to right, #74ebd5, #acb6e5);
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  color: #333;
+}
 
+#formulario-nombre-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 100px;
+  width: 100%;
+  max-width: 400px; /* Limitar el ancho del formulario */
+  background-color: antiquewhite;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
 
-  h1 {
-    color: #2c3e50;
-  }
+#formulario-nombre h1 {
+  margin-bottom: 20px;
+  color: #2c3e50;
+}
 
+input[type="text"] {
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-top: 10px;
+  width: 80%;
+  max-width: 300px; /* Limitar el ancho del input */
+}
 
-  #contenedor {
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    max-width: 600px;
-    margin: auto;
-    padding: 20px;
-  }
+button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  margin: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
 
+button:hover {
+  background-color: #2980b9;
+}
 
-  #pregunta {
-    font-size: 20px;
-    margin-bottom: 20px;
-  }
+/* Centrar y dar estilo al contenedor principal del juego */
+#contenedor {
+  display: none; /* Se muestra cuando comience el juego */
+  text-align: center;
+  margin-top: 50px;
+  max-width: 600px;
+  width: 100%; /* Hace que el contenedor se adapte a la pantalla */
+  background-color: antiquewhite;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Agregar sombra para darle más profundidad */
+  padding: 20px; /* Espaciado interno */
+}
 
+h1 {
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
 
-  #imagen {
-    max-width: 200px;
-    margin-bottom: 20px;
-    display: none;
-  }
+/* Estilo de las opciones de respuesta */
+#opciones button {
+  display: block;
+  width: 80%; /* Hacer los botones un poco más pequeños */
+  max-width: 300px;
+  margin: 10px auto; /* Centrado horizontal */
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
 
+#opciones button:hover {
+  background-color: #2980b9;
+}
 
-  #opciones {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
+/* Estilo para el puntaje y resultado */
+#puntaje, #resultado {
+  font-weight: bold;
+  margin: 15px 0;
+  font-size: 18px;
+}
 
+/* Estilo para la imagen de la bandera */
+#imagen {
+  max-width: 80%;
+  height: auto;
+  margin: 15px auto;
+  display: none;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
-  .opcion {
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 8px;
-    background: #3498db;
-    color: white;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
+/* Estilo para el botón de siguiente pregunta */
+#siguiente {
+  display: none;
+  padding: 10px 20px;
+  background-color: #2ecc71;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 20px;
+}
 
-
-  .opcion:hover {
-    background: #2980b9;
-  }
-
-
-  #resultado {
-    font-weight: bold;
-    font-size: 18px;
-  }
-
-
-  #siguiente {
-    margin-top: 20px;
-    padding: 10px 30px;
-    font-size: 16px;
-    border: none;
-    background: #2ecc71;
-    color: white;
-    border-radius: 8px;
-    cursor: pointer;
-  }
-
-
-  #siguiente:hover {
-    background: #27ae60;
-  }
-
-  #pregunta {
-    background-color: #f0f8ff;
-    padding: 1rem;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    font-size: 1.1rem;
-    line-height: 1.6;
-  }
+#siguiente:hover {
+  background-color: #27ae60;
+}
