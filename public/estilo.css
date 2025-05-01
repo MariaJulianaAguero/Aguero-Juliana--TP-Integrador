@@ -1,6 +1,9 @@
 body {
     font-family: 'Segoe UI', sans-serif;
-    background: #f0f4f8;
+    background-image: url(img/mundi.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     margin: 0;
     padding: 20px;
     text-align: center;
