@@ -9,7 +9,7 @@ let respuestasIncorrectas = 0;
 let tiempoInicio = null;
 let tiemposRespuesta = [];
 let nombreJugador = '';
-
+document.getElementById('ver-ranking').addEventListener('click', verRanking);
 function obtenerPaises() {
   fetch(url)
     .then(res => res.json())
@@ -164,31 +164,68 @@ function generarPregunta(paises) {
     document.getElementById('opciones').innerHTML = '';
     document.getElementById('imagen').style.display = 'none';
     document.getElementById('siguiente').style.display = 'none';
-
-    
-  }
-
-  function verRanking() {
-    fetch('/ranking')
-      .then(res => res.json())
-      .then(partidas => {
-        const tabla = document.getElementById('tabla-ranking');
-        tabla.innerHTML = ''; // Limpiar tabla
   
-        partidas.forEach(partida => {
-          const fila = document.createElement('tr');
-          fila.innerHTML = `
-            <td>${partida.nombre}</td>
-            <td>${partida.puntaje}</td>
-            <td>${partida.correctas}</td>
-            <td>${partida.tiempoTotal}</td>
-          `;
-          tabla.appendChild(fila);
-        });
-      })
-      .catch(error => console.error('Error al cargar el ranking:', error));
+    // Llamada para guardar los resultados en localStorage
+    guardarPartidaEnLocalStorage(nombreJugador, puntaje);
+  }
+  
+  function guardarPartidaEnLocalStorage(nombre, puntaje) {
+    const partida = {
+      nombre: nombre,
+      puntaje: puntaje,
+      correctas: respuestasCorrectas,
+      tiempoTotal: (tiemposRespuesta.reduce((a, b) => a + b, 0) / 1000).toFixed(2)
+    };
+  
+    // Asegurarse de que 'ranking' en localStorage sea un array
+    let partidasGuardadas = JSON.parse(localStorage.getItem('ranking'));
+  
+    // Si 'ranking' no existe o no es un array válido, inicializar como un array vacío
+    if (!Array.isArray(partidasGuardadas)) {
+      partidasGuardadas = [];
+    }
+  
+    // Agregar la nueva partida
+    partidasGuardadas.push(partida);
+  
+    // Guardar nuevamente en localStorage
+    localStorage.setItem('ranking', JSON.stringify(partidasGuardadas));
+  
+    alert('¡Partida guardada en localStorage!');
+  }
+function verRanking() {
+  // Obtener el ranking desde el localStorage
+  let partidas = JSON.parse(localStorage.getItem('ranking'));
+
+  // Si no hay partidas guardadas o no es un arreglo válido, inicializamos un arreglo vacío
+  if (!Array.isArray(partidas)) {
+      partidas = [];
   }
 
+  // Si no hay partidas, mostramos un mensaje
+  if (partidas.length === 0) {
+      alert('No hay partidas guardadas.');
+      return;
+  }
+
+  // Mostrar las partidas en la tabla
+  const tabla = document.getElementById('tabla-ranking');
+  tabla.innerHTML = ''; // Limpiar tabla antes de mostrar nuevos resultados
+
+  partidas.forEach(partida => {
+      const fila = document.createElement('tr');
+      fila.innerHTML = `
+          <td>${partida.nombre}</td>
+          <td>${partida.puntaje}</td>
+          <td>${partida.correctas}</td>
+          <td>${partida.tiempoTotal}</td>
+      `;
+      tabla.appendChild(fila);
+  });
+
+  // Hacer visible el contenedor del ranking
+  document.getElementById('ranking-container').style.display = 'block';
+}
   function iniciarJuego() {
     const inputNombre = document.getElementById('nombre');
     const nombre = inputNombre.value.trim();
@@ -211,4 +248,38 @@ function generarPregunta(paises) {
 
   document.getElementById('btn-comenzar').addEventListener('click', iniciarJuego);
   
+  function obtenerRanking() {
+    fetch('https://TU-BACKEND-EN-RENDER/ranking')
+      .then(res => res.json())
+      .then(ranking => {
+        console.log(ranking); // Acá lo podés mostrar en la consola o en HTML
+        mostrarRankingEnPantalla(ranking); // función para que lo muestres en pantalla
+      })
+      .catch(err => {
+        console.error("Error al obtener el ranking:", err);
+      });
+  }
+
+  function mostrarRankingEnPantalla(ranking) {
+    const contenedor = document.getElementById('ranking');
+    contenedor.innerHTML = '<h3>Ranking</h3>';
+    ranking.forEach((j, i) => {
+      contenedor.innerHTML += `<p>${i + 1}. ${j.jugador} - ${j.puntaje} pts - ${j.tiempo}s</p>`;
+    });
+  }
+
+  function guardarPartida(nombre, puntaje, tiempoTotal) {
+    const datos = {
+      nombre: nombreJugador,
+      puntaje,
+      correctas: respuestasCorrectas,
+      tiempoTotal: (tiemposRespuesta.reduce((a, b) => a + b, 0) / 1000).toFixed(2)
+    };
   
+    // Guardamos los datos en el localStorage
+    let partidasGuardadas = JSON.parse(localStorage.getItem('ranking')) || []; // Si no hay partidas guardadas, inicializamos un arreglo vacío
+    partidasGuardadas.push(datos);
+    localStorage.setItem('ranking', JSON.stringify(partidasGuardadas));
+  
+    alert('¡Partida guardada con éxito!');
+  }
