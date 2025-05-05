@@ -92,16 +92,15 @@ function generarPregunta(paises) {
     const pais = paises[Math.floor(Math.random() * paises.length)];
     const correcta = (pais.borders || []).length;
     const pregunta = `¿Cuántos países limítrofes tiene ${pais.name.common}?`;
-  
-  
+
     const incorrectas = mezclar([
       Math.max(0, correcta + 1),
       Math.max(0, correcta + 2),
       Math.max(0, correcta - 1)
-    ]).slice(0, 3);
-    const opciones = mezclar([correcta].concat(incorrectas));
+    ].filter(n => n !== correcta)).slice(0, 3);
   
-  
+    const opciones = mezclar(incorrectas.concat(correcta));
+
     return { pregunta, opciones, correcta, puntos: 3 };
   }
 
@@ -196,6 +195,7 @@ function generarPregunta(paises) {
   
     // Llamada para guardar los resultados en localStorage
     guardarPartidaEnLocalStorage(nombreJugador, puntaje);
+    alert("¡Partida finalizada! Se guardó tu partida.");
   }
 
   function resetGame() {
@@ -251,6 +251,7 @@ function generarPregunta(paises) {
     }
     const tabla = document.getElementById('tabla-ranking');
     tabla.innerHTML = '';
+    partidas.sort((a, b) => b.puntaje - a.puntaje);
     partidas.forEach(p => {
       const tr = document.createElement('tr');
       tr.innerHTML = `

@@ -53,6 +53,9 @@ h1, h2 {
   color: #2c3e50;
   margin-bottom: 1rem;
 }
+p{
+  text-align: center;
+}
 
 /* Input */
 input[type="text"] {

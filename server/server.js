@@ -2,10 +2,14 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs');
 const cors = require('cors');
-app.use(cors());
-app.use(express.json());
+
 const app = express();
 
+// Servir archivos estáticos desde la carpeta 'public'
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(cors());
+app.use(express.json());
 
 const PORT = process.env.PORT || 3000;
 
@@ -15,7 +19,9 @@ app.post('/partidas', (req, res) => {
 
   // Leer y parsear el ranking
   const file = path.join(__dirname, 'ranking.json');
-  let ranking = JSON.parse(fs.readFileSync(file, 'utf8'));
+  if (fs.existsSync(file)) {
+    ranking = JSON.parse(fs.readFileSync(file, 'utf8'));
+  }
 
   // Agregar, ordenar y recortar
   ranking.push(nueva);
@@ -33,9 +39,15 @@ app.post('/partidas', (req, res) => {
 });
 
 app.get('/ranking', (req, res) => {
-  const ranking = JSON.parse(fs.readFileSync(path.join(__dirname, 'ranking.json'), 'utf8'));
-  res.json(ranking);
+  const file = path.join(__dirname, 'ranking.json');
+  if (fs.existsSync(file)) {
+    const ranking = JSON.parse(fs.readFileSync(file, 'utf8'));
+    res.json(ranking);
+  } else {
+    res.json([]);
+  }
 });
+
 
 
 app.listen(PORT, () => {
