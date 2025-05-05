@@ -33,22 +33,19 @@
       <button id="siguiente" class="hidden">Siguiente Pregunta</button>
     </section>
 
-  <div id="ranking-container" style="display: none;">
-    <button onclick="verRanking()">Ver Ranking</button>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Puntaje</th>
-                <th>Correctas</th>
-                <th>Tiempo (s)</th>
-            </tr>
-        </thead>
-        <tbody id="tabla-ranking"></tbody>
+    //Tabla del ranking
+    <section id="ranking-container" class="card hidden">
+    <h2>Ranking Top 20</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th><th>Puntaje</th><th>Correctas</th><th>Tiempo (s)</th>
+        </tr>
+      </thead>
+      <tbody id="tabla-ranking"></tbody>
     </table>
-
-
-<div id="ranking"></div>
+  </section>
+</main>
 
  
 
