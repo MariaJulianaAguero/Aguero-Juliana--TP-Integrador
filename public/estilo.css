@@ -1,137 +1,144 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-image: url("img/mundi.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  min-height: 100vh;
   color: #333;
 }
 
-#formulario-nombre-container {
+
+.hidden { display: none !important; }
+
+/* Header */
+.header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  background: rgba(255,255,255,0.9);
+  padding: 1rem;
   display: flex;
   justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  margin-top: 100px;
-  width: 100%;
-  max-width: 400px; /* Limitar el ancho del formulario */
-  background-color: rgb(247, 247, 247);
-  padding: 20px;
+  gap: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  z-index: 100;
+}
+
+/* Main container */
+.main-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2rem;
+  padding: 6rem 1rem 1rem;
+}
+
+/* Card */
+.card {
+  background: rgba(255,255,255,0.95);
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  max-width: 400px;
+  width: 100%;
 }
 
-#formulario-nombre h1 {
-  margin-bottom: 20px;
+/* Juego card */
+#contenedor.card { max-width: 500px; }
+
+/* Títulos */
+h1, h2 {
   color: #2c3e50;
+  margin-bottom: 1rem;
 }
 
+/* Input */
 input[type="text"] {
-  padding: 8px;
-  font-size: 16px;
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
   border: 1px solid #ccc;
   border-radius: 8px;
-  margin-top: 10px;
-  width: 80%;
-  max-width: 300px; /* Limitar el ancho del input */
+  margin-top: 0.5rem;
 }
 
+/* Botones generales */
 button {
-  background-color: #3498db;
-  color: white;
+  cursor: pointer;
   border: none;
   border-radius: 8px;
-  padding: 10px 20px;
-  margin: 10px;
-  cursor: pointer;
-  font-size: 16px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
   transition: background-color 0.3s ease;
+  background-color: #3498db;
+  color: #fff;
 }
 
 button:hover {
   background-color: #2980b9;
 }
 
-/* Centrar y dar estilo al contenedor principal del juego */
-#contenedor {
-  display: none; /* Se muestra cuando comience el juego */
-  text-align: center;
-  margin-top: 50px;
-  max-width: 500px;
-  width: 100%; /* Hace que el contenedor se adapte a la pantalla */
-  background-color: rgb(247, 247, 247);
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Agregar sombra para darle más profundidad */
-  padding: 20px; /* Espaciado interno */
+/* Opciones de respuesta */
+#opciones {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 1rem 0;
 }
 
-h1 {
-  color: #2c3e50;
-  margin-bottom: 20px;
-}
-
-/* Estilo de las opciones de respuesta */
 #opciones button {
-  display: block;
-  width: 80%; /* Hacer los botones un poco más pequeños */
-  max-width: 300px;
-  margin: 10px auto; /* Centrado horizontal */
-  padding: 10px;
-  font-size: 16px;
-  cursor: pointer;
-  background-color: #3498db;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  transition: background-color 0.3s ease;
+  width: 100%;
 }
 
-#opciones button:hover {
-  background-color: #2980b9;
-}
-
-/* Estilo para el puntaje y resultado */
-#puntaje, #resultado {
-  font-weight: bold;
-  margin: 15px 0;
-  font-size: 18px;
-}
-
-/* Estilo para la imagen de la bandera */
+/* Imagen */
 #imagen {
   max-width: 50%;
-  height: auto;
-  margin: 15px auto;
-  display: none;
+  margin: 1rem auto;
+  display: block;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-/* Estilo para el botón de siguiente pregunta */
+/* Resultado */
+#resultado {
+  font-weight: bold;
+  margin: 1rem 0;
+  font-size: 1.1rem;
+}
+
+/* Siguiente */
 #siguiente {
-  display: none;
-  padding: 10px 20px;
   background-color: #2ecc71;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  margin-top: 20px;
 }
 
 #siguiente:hover {
   background-color: #27ae60;
 }
+
+/* Pregunta */
 .pregunta-estilo {
-  font-size: 20px;
+  font-size: 1.2rem;
   font-weight: bold;
-  color: #4CAF50;  /* Color verde */
+  color: #4CAF50;
   text-align: center;
-  margin: 20px 0;
+  margin-bottom: 1rem;
+}
+
+/* Tabla ranking */
+#ranking-container table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#ranking-container th,
+#ranking-container td {
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  text-align: center;
+}
+
+#ranking-container th {
+  background: #f0f0f0;
 }
