@@ -199,19 +199,34 @@ function generarPregunta(paises) {
   }
 
   function resetGame() {
-    // Vuelve a cargar el juego
     puntaje = 0;
     preguntasRespondidas = respuestasCorrectas = respuestasIncorrectas = 0;
     tiemposRespuesta = [];
-    tiempoInicio = Date.now();
-  
-    document.getElementById('puntaje').textContent = `Puntaje: 0`;
+    tiempoInicio = null;
+    nombreJugador = '';
+
+
+    // - Vuelve a mostrar el formulario de nombre
+    formulario.classList.remove('hidden');
+    // - Oculta el área de juego
+    contenedor.classList.add('hidden');
+    // - Oculta todos los botones de juego
+    btnGuardar.classList.add('hidden');
+    btnSiguiente.classList.add('hidden');
     btnReiniciar.classList.add('hidden');
-    btnGuardar.classList.remove('hidden');
     rankingContainer.classList.add('hidden');
-  
-    nuevaPregunta();
+
+    
+    document.getElementById('puntaje').textContent    = 'Puntaje: 0';
+    document.getElementById('pregunta').textContent   = '';
+    document.getElementById('opciones').innerHTML     = '';
+    document.getElementById('resultado').textContent   = '';
+    imgBandera.classList.add('hidden');
+
+    // 3) Limpia el input de nombre
+    document.getElementById('nombre').value = '';
   }
+  
   
   function guardarPartidaEnLocalStorage(nombre, puntaje) {
     const partida = {
