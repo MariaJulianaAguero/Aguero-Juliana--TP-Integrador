@@ -21,24 +21,17 @@
       <input type="text" id="nombre" placeholder="Escribe tu nombre" />
     </section>
 
-  <button id="guardar-partida">Guardar Partida</button>
-  <button id="ver-ranking">Ver Ranking</button>
-
-  <div id="contenedor" style="display:none;">
-    <h1>Juego de Países</h1>
-    <p>Jugador: <span id="nombre-jugador"></span></p>
-    <p id="puntaje">Puntaje: 0</p>
-
-    <div id="pregunta"></div>
-    <img id="imagen" src="" alt="Bandera">
-
-    <div id="opciones"></div>
-
-    <p id="resultado"></p>
-  
-
-    <button id="siguiente" style="display:none;" onclick="nuevaPregunta()">Siguiente Pregunta</button>
-  </div>
+  //Contenedor del juego
+    <section id="contenedor" class="card hidden">
+      <h1>Juego de Países</h1>
+      <p>Jugador: <span id="nombre-jugador"></span></p>
+      <p id="puntaje">Puntaje: 0</p>
+      <div id="pregunta" class="pregunta-estilo"></div>
+      <img id="imagen" src="" alt="Bandera" />
+      <div id="opciones"></div>
+      <p id="resultado"></p>
+      <button id="siguiente" class="hidden">Siguiente Pregunta</button>
+    </section>
 
   <div id="ranking-container" style="display: none;">
     <button onclick="verRanking()">Ver Ranking</button>
