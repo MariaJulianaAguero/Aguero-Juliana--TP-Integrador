@@ -19,7 +19,7 @@ const btnGuardar        = document.getElementById('guardar-partida');
 const btnVerRanking     = document.getElementById('ver-ranking');
 const btnSiguiente      = document.getElementById('siguiente');
 const imgBandera        = document.getElementById('imagen');
-
+const btnReiniciar = document.getElementById('btn-reiniciar');
 // Eventos
 btnComenzar.addEventListener('click', iniciarJuego);
 btnGuardar.addEventListener('click', () => {
@@ -35,6 +35,8 @@ btnSiguiente.addEventListener('click', () => {
   btnSiguiente.classList.add('hidden');
   nuevaPregunta();
 });
+
+btnReiniciar.addEventListener('click', resetGame);
 
 function obtenerPaises() {
   fetch(url)
@@ -117,10 +119,11 @@ function generarPregunta(paises) {
   
   function nuevaPregunta() {
     preguntaActual = generarPregunta(paises);
+
     const preguntaElement = document.getElementById('pregunta');
-  
     preguntaElement.textContent = preguntaActual.pregunta;
-    preguntaElement.className = 'pregunta-estilo';
+
+    
   
     const contenedorOpciones = document.getElementById('opciones');
     contenedorOpciones.innerHTML = '';
@@ -128,28 +131,29 @@ function generarPregunta(paises) {
       const boton = document.createElement('button');
       boton.textContent = op;
       boton.className = 'opcion';
-      boton.onclick = () => mostrarResultado(op, preguntaActual.correcta, preguntaActual.puntos);
+      boton.addEventListener('click', () =>
+        mostrarResultado(op, preguntaActual.correcta, preguntaActual.puntos)
+      );
       contenedorOpciones.appendChild(boton);
-    });
-  
-    const img = document.getElementById('imagen');
+     });
+    
     if (preguntaActual.imagen) {
-      img.src = preguntaActual.imagen;
-      img.style.display = 'block';
+      imgBandera.src = preguntaActual.imagen;
+      imgBandera.classList.remove('hidden');
     } else {
-      img.style.display = 'none';
+      imgBandera.classList.add('hidden');
     }
   
     document.getElementById('resultado').textContent = '';
-    document.getElementById('siguiente').style.display = 'none';
+    btnSiguiente.classList.add('hidden');
   }
   
   function mostrarResultado(elegida, correcta, puntos) {
     const res = document.getElementById('resultado');
     preguntasRespondidas++;
 
-    const tiempoRespuesta = Date.now() - tiempoInicio;
-    tiemposRespuesta.push(tiempoRespuesta);
+    const lapso = Date.now() - tiempoInicio;
+    tiemposRespuesta.push(lapso);
 
     if (elegida === correcta) {
       puntaje += puntos;
@@ -162,14 +166,14 @@ function generarPregunta(paises) {
       res.style.color = 'red';
     }
 
+    // Mostrar puntaje
+  document.getElementById('puntaje').textContent = `Puntaje: ${puntaje}`;
+    // Siguiente o resumen
     if (preguntasRespondidas >= totalPreguntas) {
       mostrarResumen();
     } else {
-      document.getElementById('siguiente').style.display = 'block';
+      btnSiguiente.classList.remove('hidden');
     }
-  
-  
-    document.getElementById('puntaje').textContent = `Puntaje: ${puntaje}`;
   
   }
 
@@ -177,22 +181,36 @@ function generarPregunta(paises) {
     const duracionTotal = tiemposRespuesta.reduce((a, b) => a + b, 0);
     const promedio = duracionTotal / tiemposRespuesta.length;
   
-    const resumen = `
-      <strong>🏁 Juego terminado</strong><br><br>
-      🟢 <strong>Correctas:</strong> ${respuestasCorrectas}<br>
-      🔴 <strong>Incorrectas:</strong> ${respuestasIncorrectas}<br>
-      ⏱️ <strong>Tiempo total:</strong> ${(duracionTotal / 1000).toFixed(2)} segundos<br>
-      ⌛ <strong>Tiempo promedio por pregunta:</strong> ${(promedio / 1000).toFixed(2)} segundos<br>
-      🧠 <strong>Puntaje total:</strong> ${puntaje}
-    `;
-  
-    document.getElementById('pregunta').innerHTML = resumen;
-    document.getElementById('opciones').innerHTML = '';
-    document.getElementById('imagen').style.display = 'none';
-    document.getElementById('siguiente').style.display = 'none';
+    document.getElementById('pregunta').innerHTML = `
+    <strong>🏁 Juego terminado</strong><br><br>
+    🟢 <strong>Correctas:</strong> ${respuestasCorrectas}<br>
+    🔴 <strong>Incorrectas:</strong> ${respuestasIncorrectas}<br>
+    ⏱️ <strong>Tiempo total:</strong> ${(duracionTotal/1000).toFixed(2)} s<br>
+    ⌛ <strong>Tiempo promedio:</strong> ${(promedio/1000).toFixed(2)} s<br>
+    🧠 <strong>Puntaje total:</strong> ${puntaje}
+  `;
+  document.getElementById('opciones').innerHTML = '';
+  imgBandera.classList.add('hidden');
+  btnSiguiente.classList.add('hidden');
+  btnReiniciar.classList.remove('hidden');
   
     // Llamada para guardar los resultados en localStorage
     guardarPartidaEnLocalStorage(nombreJugador, puntaje);
+  }
+
+  function resetGame() {
+    // Vuelve a cargar el juego
+    puntaje = 0;
+    preguntasRespondidas = respuestasCorrectas = respuestasIncorrectas = 0;
+    tiemposRespuesta = [];
+    tiempoInicio = Date.now();
+  
+    document.getElementById('puntaje').textContent = `Puntaje: 0`;
+    btnReiniciar.classList.add('hidden');
+    btnGuardar.classList.remove('hidden');
+    rankingContainer.classList.add('hidden');
+  
+    nuevaPregunta();
   }
   
   function guardarPartidaEnLocalStorage(nombre, puntaje) {
@@ -203,71 +221,46 @@ function generarPregunta(paises) {
       tiempoTotal: (tiemposRespuesta.reduce((a, b) => a + b, 0) / 1000).toFixed(2)
     };
   
-    // Asegurarse de que 'ranking' en localStorage sea un array
-    let partidasGuardadas = JSON.parse(localStorage.getItem('ranking'));
-  
-    // Si 'ranking' no existe o no es un array válido, inicializar como un array vacío
-    if (!Array.isArray(partidasGuardadas)) {
-      partidasGuardadas = [];
-    }
-  
-    // Agregar la nueva partida
-    partidasGuardadas.push(partida);
-  
-    // Guardar nuevamente en localStorage
-    localStorage.setItem('ranking', JSON.stringify(partidasGuardadas));
-  
+    let ranking = JSON.parse(localStorage.getItem('ranking'));
+    if (!Array.isArray(ranking)) ranking = [];
+    ranking.push(partida);
+    localStorage.setItem('ranking', JSON.stringify(ranking));
     alert('¡Partida guardada en localStorage!');
   }
-function verRanking() {
-  // Obtener el ranking desde el localStorage
-  let partidas = JSON.parse(localStorage.getItem('ranking'));
 
-  // Si no hay partidas guardadas o no es un arreglo válido, inicializamos un arreglo vacío
-  if (!Array.isArray(partidas)) {
-      partidas = [];
-  }
-
-  // Si no hay partidas, mostramos un mensaje
-  if (partidas.length === 0) {
+  function verRanking() {
+    let partidas = JSON.parse(localStorage.getItem('ranking'));
+    if (!Array.isArray(partidas) || partidas.length === 0) {
       alert('No hay partidas guardadas.');
       return;
+    }
+    const tabla = document.getElementById('tabla-ranking');
+    tabla.innerHTML = '';
+    partidas.forEach(p => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${p.nombre}</td>
+        <td>${p.puntaje}</td>
+        <td>${p.correctas}</td>
+        <td>${p.tiempoTotal}</td>
+      `;
+      tabla.appendChild(tr);
+    });
   }
 
-  // Mostrar las partidas en la tabla
-  const tabla = document.getElementById('tabla-ranking');
-  tabla.innerHTML = ''; // Limpiar tabla antes de mostrar nuevos resultados
 
-  partidas.forEach(partida => {
-      const fila = document.createElement('tr');
-      fila.innerHTML = `
-          <td>${partida.nombre}</td>
-          <td>${partida.puntaje}</td>
-          <td>${partida.correctas}</td>
-          <td>${partida.tiempoTotal}</td>
-      `;
-      tabla.appendChild(fila);
-  });
-
-  // Hacer visible el contenedor del ranking
-  document.getElementById('ranking-container').style.display = 'block';
-}
   function iniciarJuego() {
-    const inputNombre = document.getElementById('nombre');
-    const nombre = inputNombre.value.trim();
-  
-    if (nombre === '') {
-      alert('Por favor ingresá tu nombre');
+    const nombre = document.getElementById('nombre').value.trim();
+    if (!nombre) {
+      alert('Por favor ingresa tu nombre');
       return;
     }
-  
     nombreJugador = nombre;
     document.getElementById('nombre-jugador').textContent = nombreJugador;
   
-    // Oculta el formulario y empieza a mostrar el juego
-    document.getElementById('formulario-nombre-container').style.display = 'none';
-    document.getElementById('contenedor').style.display = 'block';
-    
+    formulario.classList.add('hidden');
+    contenedor.classList.remove('hidden');
+    btnGuardar.classList.remove('hidden');
   
     obtenerPaises();
   }
@@ -286,26 +279,4 @@ function verRanking() {
       });
   }
 
-  function mostrarRankingEnPantalla(ranking) {
-    const contenedor = document.getElementById('ranking');
-    contenedor.innerHTML = '<h3>Ranking</h3>';
-    ranking.forEach((j, i) => {
-      contenedor.innerHTML += `<p>${i + 1}. ${j.jugador} - ${j.puntaje} pts - ${j.tiempo}s</p>`;
-    });
-  }
-
-  function guardarPartida(nombre, puntaje, tiempoTotal) {
-    const datos = {
-      nombre: nombreJugador,
-      puntaje,
-      correctas: respuestasCorrectas,
-      tiempoTotal: (tiemposRespuesta.reduce((a, b) => a + b, 0) / 1000).toFixed(2)
-    };
   
-    // Guardamos los datos en el localStorage
-    let partidasGuardadas = JSON.parse(localStorage.getItem('ranking')) || []; // Si no hay partidas guardadas, inicializamos un arreglo vacío
-    partidasGuardadas.push(datos);
-    localStorage.setItem('ranking', JSON.stringify(partidasGuardadas));
-  
-    alert('¡Partida guardada con éxito!');
-  }
