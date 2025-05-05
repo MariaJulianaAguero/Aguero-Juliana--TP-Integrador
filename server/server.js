@@ -48,6 +48,11 @@ app.get('/ranking', (req, res) => {
   }
 });
 
+// Ruta para servir el archivo index.html
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
+});
+
 
 
 app.listen(PORT, () => {
