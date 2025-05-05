@@ -33,15 +33,8 @@ app.post('/partidas', (req, res) => {
 });
 
 app.get('/ranking', (req, res) => {
-  fs.readFile(path.join(__dirname, 'ranking.json'), 'utf8', (err, data) => {
-    if (err) return res.status(500).send('Error al leer el ranking');
-    try {
-      const ranking = JSON.parse(data);
-      res.json(ranking);
-    } catch (parseError) {
-      res.status(500).send('Error al procesar los datos del ranking');
-    }
-  });
+  const ranking = JSON.parse(fs.readFileSync(path.join(__dirname, 'ranking.json'), 'utf8'));
+  res.json(ranking);
 });
 
 

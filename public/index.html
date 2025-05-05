@@ -8,11 +8,18 @@
 </head>
 <body>
 
-  <div id="formulario-nombre-container">
-    <h1>Ingresa tu nombre</h1>
-    <input type="text" id="nombre" placeholder="Escribe tu nombre" />
-    <button id="btn-comenzar">Comenzar</button> <!-- El botón ya no tiene onclick -->
-  </div>
+  <header class="header">
+    <button id="btn-comenzar">Comenzar</button>
+    <button id="guardar-partida" class="hidden">Guardar Partida</button>
+    <button id="ver-ranking">Ver Ranking</button>
+  </header>
+
+  //Formulario para el nombre
+  <main class="main-container">
+    <section id="formulario-nombre-container" class="card">
+      <h1>Ingresa tu nombre</h1>
+      <input type="text" id="nombre" placeholder="Escribe tu nombre" />
+    </section>
 
   <button id="guardar-partida">Guardar Partida</button>
   <button id="ver-ranking">Ver Ranking</button>
