@@ -9,7 +9,33 @@ let respuestasIncorrectas = 0;
 let tiempoInicio = null;
 let tiemposRespuesta = [];
 let nombreJugador = '';
-document.getElementById('ver-ranking').addEventListener('click', verRanking);
+
+//DOM
+const formulario        = document.getElementById('formulario-nombre-container');
+const contenedor        = document.getElementById('contenedor');
+const rankingContainer  = document.getElementById('ranking-container');
+const btnComenzar       = document.getElementById('btn-comenzar');
+const btnGuardar        = document.getElementById('guardar-partida');
+const btnVerRanking     = document.getElementById('ver-ranking');
+const btnSiguiente      = document.getElementById('siguiente');
+const imgBandera        = document.getElementById('imagen');
+
+// Eventos
+btnComenzar.addEventListener('click', iniciarJuego);
+btnGuardar.addEventListener('click', () => {
+  guardarPartidaEnLocalStorage(nombreJugador, puntaje);
+});
+btnVerRanking.addEventListener('click', () => {
+  rankingContainer.classList.toggle('hidden');
+  if (!rankingContainer.classList.contains('hidden')) {
+    verRanking();
+  }
+});
+btnSiguiente.addEventListener('click', () => {
+  btnSiguiente.classList.add('hidden');
+  nuevaPregunta();
+});
+
 function obtenerPaises() {
   fetch(url)
     .then(res => res.json())
