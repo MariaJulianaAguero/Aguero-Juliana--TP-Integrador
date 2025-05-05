@@ -2,43 +2,34 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs');
 const cors = require('cors');
-
+app.use(cors());
+app.use(express.json());
 const app = express();
 
 
 const PORT = process.env.PORT || 3000;
 
 
-app.post('/guardar', (req, res) => {
-  const nuevaPartida = req.body;
+app.post('/partidas', (req, res) => {
+  const nueva = req.body;
 
-  // Leer el archivo de ranking
-  fs.readFile(path.join(__dirname, 'ranking.json'), 'utf8', (err, data) => {
-    if (err) return res.status(500).send('Error al leer el archivo de ranking');
+  // Leer y parsear el ranking
+  const file = path.join(__dirname, 'ranking.json');
+  let ranking = JSON.parse(fs.readFileSync(file, 'utf8'));
 
-    let ranking = [];
-    try {
-      ranking = JSON.parse(data);
-    } catch (parseError) {
-      console.log('Archivo corrupto o vacío. Reiniciando ranking.json');
-    }
-
-    // Agregar la nueva partida al ranking
-    ranking.push(nuevaPartida);
-
-    // Ordenar el ranking por puntaje descendente
-    ranking.sort((a, b) => b.puntaje - a.puntaje);
-
-    // Escribir el nuevo ranking en el archivo
-    fs.writeFile(
-      path.join(__dirname, 'ranking.json'),
-      JSON.stringify(ranking, null, 2),
-      (err) => {
-        if (err) return res.status(500).send('Error al guardar el archivo de ranking');
-        res.status(200).send('Partida guardada exitosamente');
-      }
-    );
+  // Agregar, ordenar y recortar
+  ranking.push(nueva);
+  ranking.sort((a, b) => {
+    if (b.puntaje !== a.puntaje) return b.puntaje - a.puntaje;
+    return a.tiempoTotal - b.tiempoTotal;
   });
+  const top20 = ranking.slice(0, 20);
+
+  
+  fs.writeFileSync(file, JSON.stringify(top20, null, 2));
+
+  // Va a devolver un archivo JSON con el ranking actualizado
+  res.status(201).json({ message: 'Partida guardada', top20 });
 });
 
 app.get('/ranking', (req, res) => {
