@@ -240,6 +240,7 @@ function generarPregunta(paises) {
     🧠 <strong>Puntaje total:</strong> ${puntaje}
   `;
   document.getElementById('opciones').innerHTML = '';
+  document.getElementById('resultado').textContent = ''; 
   imgBandera.classList.add('hidden');
   btnSiguiente.classList.add('hidden');
   btnReiniciar.classList.remove('hidden');
@@ -259,16 +260,15 @@ function generarPregunta(paises) {
     })
   })
   .then(res => res.json())
-  .then(data => {
-    console.log('Partida guardada en servidor:', data);
-  })
-  .catch(err => {
-    console.error('Error al guardar partida en servidor:', err);
-  });
-
-  // Guardar también en localStorage (opcional)
-  guardarPartidaEnLocalStorage(nombreJugador, puntaje);
+.then(data => {
+  console.log('Partida guardada en servidor:', data);
+  guardarPartidaEnLocalStorage(nombreJugador, puntaje); // opcional
   alert("¡Partida finalizada! Se guardó tu partida.");
+})
+.catch(err => {
+  console.error('Error al guardar partida en servidor:', err);
+  alert("Ocurrió un error al guardar la partida en el servidor.");
+});
   }
   
   function resetGame() {
