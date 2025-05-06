@@ -193,9 +193,32 @@ function generarPregunta(paises) {
   btnSiguiente.classList.add('hidden');
   btnReiniciar.classList.remove('hidden');
   
-    // Llamada para guardar los resultados en localStorage
-    guardarPartidaEnLocalStorage(nombreJugador, puntaje);
-    alert("¡Partida finalizada! Se guardó tu partida.");
+   // Guardar en el servidor
+  fetch('/partidas', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      nombre: nombreJugador,
+      puntaje: puntaje,
+      tiempoTotal: (duracionTotal / 1000).toFixed(2),
+      respuestasCorrectas: respuestasCorrectas,
+      respuestasIncorrectas: respuestasIncorrectas
+    })
+  })
+  .then(res => res.json())
+  .then(data => {
+    console.log('Partida guardada en servidor:', data);
+  })
+  .catch(err => {
+    console.error('Error al guardar partida en servidor:', err);
+  });
+
+  // Guardar también en localStorage (opcional)
+  guardarPartidaEnLocalStorage(nombreJugador, puntaje);
+  alert("¡Partida finalizada! Se guardó tu partida.");
+}
   }
 
   function resetGame() {
