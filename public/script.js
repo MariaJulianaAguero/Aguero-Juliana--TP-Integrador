@@ -9,7 +9,15 @@ let respuestasIncorrectas = 0;
 let tiempoInicio = null;
 let tiemposRespuesta = [];
 let nombreJugador = '';
-let formulario, contenedor, btnComenzar, btnGuardar, btnReiniciar;
+let formulario,
+    contenedor,
+    rankingContainer,
+    btnComenzar,
+    btnGuardar,
+    btnVerRanking,
+    btnSiguiente,
+    imgBandera,
+    btnReiniciar;
 
 //DOM
 document.addEventListener('DOMContentLoaded', function () {
