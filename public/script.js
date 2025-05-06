@@ -75,14 +75,9 @@ btnSiguiente.addEventListener('click', function () {
 });
 
 // Evento para el botón "Reiniciar Juego"
-btnReiniciar.addEventListener('click', function () {
-  formulario.classList.remove('hidden');
-  contenedor.classList.add('hidden');
-  btnGuardar.classList.add('hidden');
-  btnReiniciar.classList.add('hidden');
-  alert('Juego reiniciado');
+btnReiniciar.addEventListener('click', resetGame);
   
-});
+
 });
 
 function obtenerPaises() {
@@ -270,31 +265,29 @@ function generarPregunta(paises) {
   
   function resetGame() {
     puntaje = 0;
-    preguntasRespondidas = respuestasCorrectas = respuestasIncorrectas = 0;
+    preguntasRespondidas = 0;
+    respuestasCorrectas = 0;
+    respuestasIncorrectas = 0;
     tiemposRespuesta = [];
     tiempoInicio = null;
     nombreJugador = '';
-
-
-    // - Vuelve a mostrar el formulario de nombre
+  
+    
     formulario.classList.remove('hidden');
-    // - Oculta el área de juego
     contenedor.classList.add('hidden');
-    // - Oculta todos los botones de juego
     btnGuardar.classList.add('hidden');
     btnSiguiente.classList.add('hidden');
     btnReiniciar.classList.add('hidden');
     rankingContainer.classList.add('hidden');
-
+  
     
     document.getElementById('puntaje').textContent    = 'Puntaje: 0';
     document.getElementById('pregunta').textContent   = '';
     document.getElementById('opciones').innerHTML     = '';
-    document.getElementById('resultado').textContent   = '';
+    document.getElementById('resultado').textContent  = '';
     imgBandera.classList.add('hidden');
-
-    // 3) Limpia el input de nombre
-    document.getElementById('nombre').value = '';
+    document.getElementById('nombre').value           = '';
+    document.getElementById('nombre-jugador').textContent = '';
   }
   
   
