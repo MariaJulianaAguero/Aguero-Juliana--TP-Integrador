@@ -1,5 +1,12 @@
 [
   {
+    "nombre": "Harry",
+    "puntaje": 22,
+    "tiempoTotal": "186.73",
+    "respuestasCorrectas": 6,
+    "respuestasIncorrectas": 4
+  },
+  {
     "nombre": "Camilo",
     "puntaje": 14,
     "tiempoTotal": "275.70",

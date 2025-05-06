@@ -311,7 +311,7 @@ function generarPregunta(paises) {
     obtenerPaises();
   }
 
-  document.getElementById('btn-comenzar').addEventListener('click', iniciarJuego);
+  
   
   function obtenerRanking() {
     fetch('/ranking')
