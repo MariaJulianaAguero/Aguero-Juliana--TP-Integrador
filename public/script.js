@@ -218,9 +218,8 @@ function generarPregunta(paises) {
   // Guardar también en localStorage (opcional)
   guardarPartidaEnLocalStorage(nombreJugador, puntaje);
   alert("¡Partida finalizada! Se guardó tu partida.");
-}
   }
-
+  
   function resetGame() {
     puntaje = 0;
     preguntasRespondidas = respuestasCorrectas = respuestasIncorrectas = 0;
@@ -267,24 +266,32 @@ function generarPregunta(paises) {
   }
 
   function verRanking() {
-    let partidas = JSON.parse(localStorage.getItem('ranking'));
-    if (!Array.isArray(partidas) || partidas.length === 0) {
-      alert('No hay partidas guardadas.');
-      return;
-    }
-    const tabla = document.getElementById('tabla-ranking');
-    tabla.innerHTML = '';
-    partidas.sort((a, b) => b.puntaje - a.puntaje);
-    partidas.forEach(p => {
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td>${p.nombre}</td>
-        <td>${p.puntaje}</td>
-        <td>${p.correctas}</td>
-        <td>${p.tiempoTotal}</td>
-      `;
-      tabla.appendChild(tr);
-    });
+    fetch('/ranking')
+      .then(res => res.json())
+      .then(partidas => {
+        if (!Array.isArray(partidas) || partidas.length === 0) {
+          alert('No hay partidas guardadas en el servidor.');
+          return;
+        }
+  
+        const tabla = document.getElementById('tabla-ranking');
+        tabla.innerHTML = '';
+        partidas.sort((a, b) => b.puntaje - a.puntaje);
+        partidas.forEach(p => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${p.nombre}</td>
+            <td>${p.puntaje}</td>
+            <td>${p.respuestasCorrectas}</td>
+            <td>${p.tiempoTotal}</td>
+          `;
+          tabla.appendChild(tr);
+        });
+      })
+      .catch(error => {
+        console.error('Error al obtener el ranking del servidor:', error);
+        alert('No se pudo obtener el ranking del servidor.');
+      });
   }
 
 
@@ -307,10 +314,10 @@ function generarPregunta(paises) {
   document.getElementById('btn-comenzar').addEventListener('click', iniciarJuego);
   
   function obtenerRanking() {
-    fetch('https://TU-BACKEND-EN-RENDER/ranking')
+    fetch('/ranking')
       .then(res => res.json())
       .then(ranking => {
-        console.log(ranking); // Acá lo podés mostrar en la consola o en HTML
+        // Acá lo podés mostrar en la consola o en HTML
         mostrarRankingEnPantalla(ranking); // función para que lo muestres en pantalla
       })
       .catch(err => {
