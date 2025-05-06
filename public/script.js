@@ -13,45 +13,72 @@ let formulario, contenedor, rankingContainer, btnComenzar, btnGuardar, btnVerRan
 
 //DOM
 document.addEventListener('DOMContentLoaded', function () {
-const formulario        = document.getElementById('formulario-nombre-container');
-const contenedor        = document.getElementById('contenedor');
-const rankingContainer  = document.getElementById('ranking-container');
-const btnComenzar       = document.getElementById('btn-comenzar');
-const btnGuardar        = document.getElementById('guardar-partida');
-const btnVerRanking     = document.getElementById('ver-ranking');
-const btnSiguiente      = document.getElementById('siguiente');
-const imgBandera        = document.getElementById('imagen');
-const btnReiniciar = document.getElementById('btn-reiniciar');
-// Eventos
-if (btnComenzar) {
-  btnComenzar.addEventListener('click', iniciarJuego);
+formulario        = document.getElementById('formulario-nombre-container');
+contenedor        = document.getElementById('contenedor');
+rankingContainer  = document.getElementById('ranking-container');
+btnComenzar       = document.getElementById('btn-comenzar');
+btnGuardar        = document.getElementById('guardar-partida');
+btnVerRanking     = document.getElementById('ver-ranking');
+btnSiguiente      = document.getElementById('siguiente');
+imgBandera        = document.getElementById('imagen');
+btnReiniciar = document.getElementById('btn-reiniciar');
+
+if (!formulario || !contenedor || !btnComenzar || !btnGuardar || !btnReiniciar || !btnVerRanking) {
+  console.error('Uno o más elementos no se encontraron en el DOM.');
+  return;
 }
 
-if (btnGuardar) {
-  btnGuardar.addEventListener('click', () => {
-    guardarPartidaEnLocalStorage(nombreJugador, puntaje);
-  });
+// Inicialización de elementos
+formulario.classList.remove('hidden');
+contenedor.classList.add('hidden');
+rankingContainer.classList.add('hidden');
 
-}
+// Evento para el botón "Comenzar"
+btnComenzar.addEventListener('click', function () {
+  const nombre = document.getElementById('nombre').value.trim();
+  if (!nombre) {
+      alert('Por favor ingresa tu nombre');
+      return;
+  }
+  nombreJugador = nombre;  // Asignamos el nombre del jugador
+  document.getElementById('nombre-jugador').textContent = nombreJugador;
+  formulario.classList.add('hidden');
+  contenedor.classList.remove('hidden');
+  btnGuardar.classList.remove('hidden');
+});
 
-if (btnVerRanking) {
-  btnVerRanking.addEventListener('click', () => {
-    rankingContainer.classList.toggle('hidden');
-    if (!rankingContainer.classList.contains('hidden')) {
-      verRanking();
-    }
-  });
-} 
+// Evento para el botón "Guardar Partida"
+btnGuardar.addEventListener('click', function () {
+  if (nombreJugador) {
+      alert(`Partida guardada para ${nombreJugador}`);
+      // Aquí va la lógica para guardar la partida (puedes usar localStorage, API, etc.)
+  } else {
+      alert('No se ha ingresado un nombre. No se puede guardar la partida.');
+  }
+});
 
-if (btnSiguiente) {
-  btnSiguiente.addEventListener('click', () => {
-    btnSiguiente.classList.add('hidden');
-    nuevaPregunta();
-  });
-} 
-if (btnReiniciar) {
-  btnReiniciar.addEventListener('click', resetGame);
-}
+// Evento para el botón "Ver Ranking"
+btnVerRanking.addEventListener('click', function () {
+  rankingContainer.classList.toggle('hidden');
+  if (!rankingContainer.classList.contains('hidden')) {
+      verRanking(); // Asegúrate de que esta función esté definida correctamente
+  }
+});
+
+// Evento para el botón "Siguiente Pregunta"
+btnSiguiente.addEventListener('click', function () {
+  btnSiguiente.classList.add('hidden');
+  nuevaPregunta(); // Asegúrate de que esta función esté definida correctamente
+});
+
+// Evento para el botón "Reiniciar Juego"
+btnReiniciar.addEventListener('click', function () {
+  formulario.classList.remove('hidden');
+  contenedor.classList.add('hidden');
+  btnGuardar.classList.add('hidden');
+  alert('Juego reiniciado');
+  // Aquí puedes agregar más lógica de reinicio, si es necesario.
+});
 });
 
 function obtenerPaises() {
@@ -319,7 +346,7 @@ function generarPregunta(paises) {
     }
     nombreJugador = nombre;
     document.getElementById('nombre-jugador').textContent = nombreJugador;
-  
+    // Aseguramos que el formulario se oculte y el contenedor se muestre
     formulario.classList.add('hidden');
     contenedor.classList.remove('hidden');
     btnGuardar.classList.remove('hidden');
