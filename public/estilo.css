@@ -3,7 +3,7 @@
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-image: url("img/mundi.jpg");
+  background-image: url("img/fondo.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -75,7 +75,7 @@ button {
   padding: 0.75rem 1.5rem;
   font-size: 1rem;
   transition: background-color 0.3s ease;
-  background-color: #3498db;
+  background-color: #e2dbbc ;
   color: #fff;
 }
 
