@@ -241,6 +241,7 @@ function generarPregunta(paises) {
   `;
   document.getElementById('opciones').innerHTML = '';
   document.getElementById('resultado').textContent = ''; 
+  document.getElementById('resultado').style.color = ''; 
   imgBandera.classList.add('hidden');
   btnSiguiente.classList.add('hidden');
   btnReiniciar.classList.remove('hidden');
