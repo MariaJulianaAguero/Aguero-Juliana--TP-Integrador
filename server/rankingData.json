@@ -1,1 +1,16 @@
-[]
+[
+  {
+    "nombre": "Camilo",
+    "puntaje": 14,
+    "tiempoTotal": "275.70",
+    "respuestasCorrectas": 4,
+    "respuestasIncorrectas": 6
+  },
+  {
+    "nombre": "Harry",
+    "puntaje": 14,
+    "tiempoTotal": "1212.71",
+    "respuestasCorrectas": 4,
+    "respuestasIncorrectas": 6
+  }
+]
