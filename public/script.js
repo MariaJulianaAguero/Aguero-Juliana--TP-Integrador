@@ -9,8 +9,10 @@ let respuestasIncorrectas = 0;
 let tiempoInicio = null;
 let tiemposRespuesta = [];
 let nombreJugador = '';
+let formulario, contenedor, rankingContainer, btnComenzar, btnGuardar, btnVerRanking, btnSiguiente, imgBandera, btnReiniciar;
 
 //DOM
+document.addEventListener('DOMContentLoaded', function () {
 const formulario        = document.getElementById('formulario-nombre-container');
 const contenedor        = document.getElementById('contenedor');
 const rankingContainer  = document.getElementById('ranking-container');
@@ -21,22 +23,36 @@ const btnSiguiente      = document.getElementById('siguiente');
 const imgBandera        = document.getElementById('imagen');
 const btnReiniciar = document.getElementById('btn-reiniciar');
 // Eventos
-btnComenzar.addEventListener('click', iniciarJuego);
-btnGuardar.addEventListener('click', () => {
-  guardarPartidaEnLocalStorage(nombreJugador, puntaje);
-});
-btnVerRanking.addEventListener('click', () => {
-  rankingContainer.classList.toggle('hidden');
-  if (!rankingContainer.classList.contains('hidden')) {
-    verRanking();
-  }
-});
-btnSiguiente.addEventListener('click', () => {
-  btnSiguiente.classList.add('hidden');
-  nuevaPregunta();
-});
+if (btnComenzar) {
+  btnComenzar.addEventListener('click', iniciarJuego);
+}
 
-btnReiniciar.addEventListener('click', resetGame);
+if (btnGuardar) {
+  btnGuardar.addEventListener('click', () => {
+    guardarPartidaEnLocalStorage(nombreJugador, puntaje);
+  });
+
+}
+
+if (btnVerRanking) {
+  btnVerRanking.addEventListener('click', () => {
+    rankingContainer.classList.toggle('hidden');
+    if (!rankingContainer.classList.contains('hidden')) {
+      verRanking();
+    }
+  });
+} 
+
+if (btnSiguiente) {
+  btnSiguiente.addEventListener('click', () => {
+    btnSiguiente.classList.add('hidden');
+    nuevaPregunta();
+  });
+} 
+if (btnReiniciar) {
+  btnReiniciar.addEventListener('click', resetGame);
+}
+});
 
 function obtenerPaises() {
   fetch(url)
