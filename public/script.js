@@ -9,7 +9,7 @@ let respuestasIncorrectas = 0;
 let tiempoInicio = null;
 let tiemposRespuesta = [];
 let nombreJugador = '';
-let formulario, contenedor, rankingContainer, btnComenzar, btnGuardar, btnVerRanking, btnSiguiente, imgBandera, btnReiniciar;
+let formulario, contenedor, btnComenzar, btnGuardar, btnReiniciar;
 
 //DOM
 document.addEventListener('DOMContentLoaded', function () {
@@ -23,7 +23,7 @@ btnSiguiente      = document.getElementById('siguiente');
 imgBandera        = document.getElementById('imagen');
 btnReiniciar = document.getElementById('btn-reiniciar');
 
-if (!formulario || !contenedor || !btnComenzar || !btnGuardar || !btnReiniciar || !btnVerRanking) {
+if (!formulario || !contenedor || !btnComenzar || !btnGuardar || !btnReiniciar) {
   console.error('Uno o más elementos no se encontraron en el DOM.');
   return;
 }
@@ -31,7 +31,8 @@ if (!formulario || !contenedor || !btnComenzar || !btnGuardar || !btnReiniciar |
 // Inicialización de elementos
 formulario.classList.remove('hidden');
 contenedor.classList.add('hidden');
-rankingContainer.classList.add('hidden');
+btnGuardar.classList.add('hidden');
+btnReiniciar.classList.add('hidden');
 
 // Evento para el botón "Comenzar"
 btnComenzar.addEventListener('click', function () {
@@ -76,6 +77,7 @@ btnReiniciar.addEventListener('click', function () {
   formulario.classList.remove('hidden');
   contenedor.classList.add('hidden');
   btnGuardar.classList.add('hidden');
+  btnReiniciar.classList.add('hidden');
   alert('Juego reiniciado');
   // Aquí puedes agregar más lógica de reinicio, si es necesario.
 });
