@@ -46,6 +46,8 @@ btnComenzar.addEventListener('click', function () {
   formulario.classList.add('hidden');
   contenedor.classList.remove('hidden');
   btnGuardar.classList.remove('hidden');
+
+  obtenerPaises();
 });
 
 // Evento para el botón "Guardar Partida"
@@ -79,7 +81,7 @@ btnReiniciar.addEventListener('click', function () {
   btnGuardar.classList.add('hidden');
   btnReiniciar.classList.add('hidden');
   alert('Juego reiniciado');
-  // Aquí puedes agregar más lógica de reinicio, si es necesario.
+  
 });
 });
 
@@ -88,6 +90,7 @@ function obtenerPaises() {
     .then(res => res.json())
     .then(data => {
       paises = data; // Guarda todos los paises en la variable paises para usarlos mas tarde
+      console.log('Países cargados:', paises.length);
       nuevaPregunta();
       tiempoInicio = Date.now();
     })
