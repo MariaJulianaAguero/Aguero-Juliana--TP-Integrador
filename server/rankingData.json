@@ -26,5 +26,12 @@
     "tiempoTotal": "1212.71",
     "respuestasCorrectas": 4,
     "respuestasIncorrectas": 6
+  },
+  {
+    "nombre": "Harry",
+    "puntaje": 9,
+    "tiempoTotal": "126.62",
+    "respuestasCorrectas": 3,
+    "respuestasIncorrectas": 7
   }
 ]
