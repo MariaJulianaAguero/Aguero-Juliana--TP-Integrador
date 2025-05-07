@@ -1,11 +1,5 @@
 [
-  {
-    "nombre": "Harry",
-    "puntaje": 27,
-    "tiempoTotal": "382.81",
-    "respuestasCorrectas": 7,
-    "respuestasIncorrectas": 3
-  },
+
   {
     "nombre": "Harry",
     "puntaje": 22,
@@ -19,7 +13,133 @@
     "tiempoTotal": "275.70",
     "respuestasCorrectas": 4,
     "respuestasIncorrectas": 6
-  }
+  },
+  {
+    "nombre": "Gonza",
+    "puntaje": 30,
+    "tiempoTotal": "210.45",
+    "respuestasCorrectas": 8,
+    "respuestasIncorrectas": 2
+  },
+  {
+    "nombre": "Lucas",
+    "puntaje": 18,
+    "tiempoTotal": "320.10",
+    "respuestasCorrectas": 5,
+    "respuestasIncorrectas": 5
+  },
+  {
+    "nombre": "Valentina",
+    "puntaje": 25,
+    "tiempoTotal": "190.22",
+    "respuestasCorrectas": 7,
+    "respuestasIncorrectas": 3
+  },
+  {
+    "nombre": "Martín",
+    "puntaje": 10,
+    "tiempoTotal": "410.90",
+    "respuestasCorrectas": 3,
+    "respuestasIncorrectas": 7
+  },
+  {
+    "nombre": "Andrea",
+    "puntaje": 35,
+    "tiempoTotal": "175.50",
+    "respuestasCorrectas": 9,
+    "respuestasIncorrectas": 1
+  },
+  {
+    "nombre": "Carlos",
+    "puntaje": 16,
+    "tiempoTotal": "295.32",
+    "respuestasCorrectas": 4,
+    "respuestasIncorrectas": 6
+  },
+  {
+    "nombre": "Ana",
+    "puntaje": 20,
+    "tiempoTotal": "250.00",
+    "respuestasCorrectas": 5,
+    "respuestasIncorrectas": 5
+  },
+  {
+    "nombre": "Franco",
+    "puntaje": 28,
+    "tiempoTotal": "215.89",
+    "respuestasCorrectas": 8,
+    "respuestasIncorrectas": 2
+  },
+  {
+    "nombre": "Micaela",
+    "puntaje": 12,
+    "tiempoTotal": "330.12",
+    "respuestasCorrectas": 3,
+    "respuestasIncorrectas": 7
+  },
+  {
+    "nombre": "Bruno",
+    "puntaje": 24,
+    "tiempoTotal": "198.33",
+    "respuestasCorrectas": 6,
+    "respuestasIncorrectas": 4
+  },
+  {
+    "nombre": "Clara",
+    "puntaje": 19,
+    "tiempoTotal": "260.76",
+    "respuestasCorrectas": 5,
+    "respuestasIncorrectas": 5
+  },
+  {
+    "nombre": "Santiago",
+    "puntaje": 31,
+    "tiempoTotal": "170.45",
+    "respuestasCorrectas": 9,
+    "respuestasIncorrectas": 1
+  },
+  {
+    "nombre": "Lidia",
+    "puntaje": 23,
+    "tiempoTotal": "240.55",
+    "respuestasCorrectas": 6,
+    "respuestasIncorrectas": 4
+  },
+  {
+    "nombre": "Nicolás",
+    "puntaje": 15,
+    "tiempoTotal": "310.65",
+    "respuestasCorrectas": 4,
+    "respuestasIncorrectas": 6
+  },
+  {
+    "nombre": "Camila",
+    "puntaje": 26,
+    "tiempoTotal": "205.20",
+    "respuestasCorrectas": 7,
+    "respuestasIncorrectas": 3
+  },
   
+  {
+    "nombre": "Tomás",
+    "puntaje": 17,
+    "tiempoTotal": "290.34",
+    "respuestasCorrectas": 5,
+    "respuestasIncorrectas": 5
+  },
+  {
+    "nombre": "Martina",
+    "puntaje": 21,
+    "tiempoTotal": "235.88",
+    "respuestasCorrectas": 6,
+    "respuestasIncorrectas": 4
+  },
+  {
+    "nombre": "Elena",
+    "puntaje": 29,
+    "tiempoTotal": "198.70",
+    "respuestasCorrectas": 8,
+    "respuestasIncorrectas": 2
+  }
   
 ]
