@@ -216,6 +216,7 @@ function generarPregunta(paises) {
   }
 
   function mostrarResumen() {
+    btnSiguiente.style.display = 'none';
     const duracionTotal = tiemposRespuesta.reduce((a, b) => a + b, 0);
     const promedio = duracionTotal / tiemposRespuesta.length;
   
