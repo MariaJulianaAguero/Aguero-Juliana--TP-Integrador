@@ -216,49 +216,46 @@ function generarPregunta(paises) {
   }
 
   function mostrarResumen() {
-    btnSiguiente.style.display = 'none';
+   
+    if (btnSiguiente) btnSiguiente.remove();
+  
+    // 2) El resto de tu lógica de resumen…
     const duracionTotal = tiemposRespuesta.reduce((a, b) => a + b, 0);
-    const promedio = duracionTotal / tiemposRespuesta.length;
+    const promedio     = duracionTotal / tiemposRespuesta.length;
   
     document.getElementById('pregunta').innerHTML = `
-    <strong>🏁 Juego terminado</strong><br><br>
-    🟢 <strong>Correctas:</strong> ${respuestasCorrectas}<br>
-    🔴 <strong>Incorrectas:</strong> ${respuestasIncorrectas}<br>
-    ⏱️ <strong>Tiempo total:</strong> ${(duracionTotal/1000).toFixed(2)} s<br>
-    ⌛ <strong>Tiempo promedio:</strong> ${(promedio/1000).toFixed(2)} s<br>
-    🧠 <strong>Puntaje total:</strong> ${puntaje}
-  `;
-  document.getElementById('opciones').innerHTML = '';
-  document.getElementById('resultado').textContent = ''; 
-  document.getElementById('resultado').style.color = ''; 
-  imgBandera.classList.add('hidden');
-  btnSiguiente.classList.add('hidden');
-  btnReiniciar.classList.remove('hidden');
+      <strong>🏁 Juego terminado</strong><br><br>
+      🟢 <strong>Correctas:</strong> ${respuestasCorrectas}<br>
+      🔴 <strong>Incorrectas:</strong> ${respuestasIncorrectas}<br>
+      ⏱️ <strong>Tiempo total:</strong> ${(duracionTotal/1000).toFixed(2)} s<br>
+      ⌛ <strong>Tiempo promedio:</strong> ${(promedio/1000).toFixed(2)} s<br>
+      🧠 <strong>Puntaje total:</strong> ${puntaje}
+    `;
+    document.getElementById('opciones').innerHTML = '';
+    document.getElementById('resultado').textContent = '';
+    imgBandera.classList.add('hidden');
   
-   // Guardar en el servidor
-  fetch('/partidas', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      nombre: nombreJugador,
-      puntaje: puntaje,
-      tiempoTotal: (duracionTotal / 1000).toFixed(2),
-      respuestasCorrectas: respuestasCorrectas,
-      respuestasIncorrectas: respuestasIncorrectas
+    // 3) Mostramos solo el botón de reiniciar:
+    btnReiniciar.classList.remove('hidden');
+  
+    // 4) Y finalmente guardamos en el servidor…
+    fetch('/partidas', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        nombre: nombreJugador,
+        puntaje,
+        tiempoTotal: (duracionTotal/1000).toFixed(2),
+        respuestasCorrectas,
+        respuestasIncorrectas
+      })
     })
-  })
-  .then(res => res.json())
-.then(data => {
-  console.log('Partida guardada en servidor:', data);
-  guardarPartidaEnLocalStorage(nombreJugador, puntaje); // opcional
-  alert("¡Partida finalizada! Se guardó tu partida.");
-})
-.catch(err => {
-  console.error('Error al guardar partida en servidor:', err);
-  alert("Ocurrió un error al guardar la partida en el servidor.");
-});
+    .then(r => r.json())
+    .then(data => {
+      guardarPartidaEnLocalStorage(nombreJugador, puntaje);
+      alert("¡Partida finalizada! Se guardó tu partida.");
+    })
+    .catch(_ => alert("Ocurrió un error al guardar la partida en el servidor."));
   }
   
   function resetGame() {
