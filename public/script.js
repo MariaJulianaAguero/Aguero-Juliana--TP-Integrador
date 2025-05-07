@@ -13,7 +13,6 @@ let formulario,
     contenedor,
     rankingContainer,
     btnComenzar,
-    btnGuardar,
     btnVerRanking,
     btnSiguiente,
     imgBandera,
@@ -25,13 +24,12 @@ formulario        = document.getElementById('formulario-nombre-container');
 contenedor        = document.getElementById('contenedor');
 rankingContainer  = document.getElementById('ranking-container');
 btnComenzar       = document.getElementById('btn-comenzar');
-btnGuardar        = document.getElementById('guardar-partida');
 btnVerRanking     = document.getElementById('ver-ranking');
 btnSiguiente      = document.getElementById('siguiente');
 imgBandera        = document.getElementById('imagen');
 btnReiniciar = document.getElementById('btn-reiniciar');
 
-if (!formulario || !contenedor || !btnComenzar || !btnGuardar || !btnReiniciar) {
+if (!formulario || !contenedor || !btnComenzar || !btnReiniciar) {
   console.error('Uno o más elementos no se encontraron en el DOM.');
   return;
 }
@@ -39,7 +37,6 @@ if (!formulario || !contenedor || !btnComenzar || !btnGuardar || !btnReiniciar) 
 // Inicialización de elementos
 formulario.classList.remove('hidden');
 contenedor.classList.add('hidden');
-btnGuardar.classList.add('hidden');
 btnReiniciar.classList.add('hidden');
 
 // Evento para el botón "Comenzar"
@@ -53,19 +50,9 @@ btnComenzar.addEventListener('click', function () {
   document.getElementById('nombre-jugador').textContent = nombreJugador;
   formulario.classList.add('hidden');
   contenedor.classList.remove('hidden');
-  btnGuardar.classList.remove('hidden');
+ 
 
   obtenerPaises();
-});
-
-// Evento para el botón "Guardar Partida"
-btnGuardar.addEventListener('click', function () {
-  if (nombreJugador) {
-      alert(`Partida guardada para ${nombreJugador}`);
-      // Aquí va la lógica para guardar la partida (puedes usar localStorage, API, etc.)
-  } else {
-      alert('No se ha ingresado un nombre. No se puede guardar la partida.');
-  }
 });
 
 // Evento para el botón "Ver Ranking"
