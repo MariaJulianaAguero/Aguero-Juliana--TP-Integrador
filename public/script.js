@@ -207,6 +207,7 @@ function generarPregunta(paises) {
   document.getElementById('puntaje').textContent = `Puntaje: ${puntaje}`;
     // Siguiente o resumen
     if (preguntasRespondidas >= totalPreguntas) {
+      btnSiguiente.classList.add('hidden');
       mostrarResumen();
     } else {
       btnSiguiente.classList.remove('hidden');
@@ -342,7 +343,7 @@ function generarPregunta(paises) {
     // Aseguramos que el formulario se oculte y el contenedor se muestre
     formulario.classList.add('hidden');
     contenedor.classList.remove('hidden');
-    btnGuardar.classList.remove('hidden');
+    
   
     obtenerPaises();
   }
