@@ -113,11 +113,16 @@ button:hover {
 
 /* Siguiente */
 #siguiente {
-  background-color: #2ecc71;
+  background-color: #d4c79d;
+  padding: 10px 20px;       
+  font-size: 16px;          
+  border: none;             
+  cursor: pointer;         
+  display: inline-block;    
+  margin-top: 20px;  
 }
-
 #siguiente:hover {
-  background-color: #27ae60;
+  background-color: #bfae7f;
 }
 
 /* Pregunta */

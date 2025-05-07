@@ -271,7 +271,6 @@ function generarPregunta(paises) {
     
     formulario.classList.remove('hidden');
     contenedor.classList.add('hidden');
-    btnGuardar.classList.add('hidden');
     btnSiguiente.classList.add('hidden');
     btnReiniciar.classList.add('hidden');
     rankingContainer.classList.add('hidden');
